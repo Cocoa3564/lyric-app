@@ -1,0 +1,249 @@
+@charset "utf-8";
+
+/* 全ての要素のデフォルト余白をリセット（推奨） */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    /* スクロールバーを非表示にする */
+    overflow: hidden;
+    /* ページ全体の幅と高さを固定する */
+    width: 100vw;
+    height: 100vh;
+}
+
+canvas {
+    display: block;
+}
+
+/* PIXIJS のキャンバス */
+#pixiCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+
+/* UI オーバーレイ */
+#ui {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+
+    pointer-events: none;
+}
+
+#ui .scene {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+:is(.scene, #help).is-active {
+    opacity: 1;
+    visibility: visible;
+}
+
+:is(.scene, #help).is-active :is(button, a, input, .clickable) {
+    pointer-events: auto;
+}
+
+#ui button{
+    padding: 20px;
+
+    background-color: rgba(255, 226, 145, 0.658);
+    color: #99823b;
+    border-radius: 30px;
+
+    font-weight: bold;
+    font-size: 40px;
+    letter-spacing: 0.1em;
+    line-height: 1;
+    font-family: sans-serif;
+
+    text-shadow:1px 1px 0 #FFF, -1px -1px 0 #FFF,
+              -1px 1px 0 #FFF, 1px -1px 0 #FFF,
+              0px 1px 0 #FFF,  0-1px 0 #FFF,
+              -1px 0 0 #FFF, 1px 0 0 #FFF;
+
+    border: 2px solid #ffffff;
+    outline-offset: 5px;
+    outline: 4px solid #99823b;
+    box-shadow: 0 0 20px white;
+
+    scale: 1;
+    transition: scale 0.2s ease;
+}
+
+#ui button:hover {
+    scale: 0.9;
+}
+
+#load {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: end;
+}
+
+#load #load-content {
+    color: white;
+    font-size: 30px;
+    margin: 20px;
+}
+
+#load-meter {
+    margin-inline: auto;
+    margin-top: 0px;
+    margin-bottom: 20vh;
+
+    padding: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    background-color: #99823b;
+    border: 6px double #fff;
+    outline: 5px solid #99823b;
+    border-radius: 305px;
+
+    width: 70%;
+}
+
+meter::-webkit-meter-bar {
+    background: #06323d;
+}
+meter::-webkit-meter-optimum-value {
+    background: #11b6db; /* 範囲内でoptimalと判定される値 */
+}
+ 
+#load-meter meter {
+    width: 100%;
+    height: 30px;
+}
+
+#help {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    height: 100%;
+
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+#help-content {
+    text-align: center;
+    font-size: 30px;
+    color: white;
+}
+
+#help-content p {
+    padding: 15px;
+}
+
+#help-content span {
+    font-size: 50px;
+}
+
+#help-annotation {
+    margin: 20px;
+    color: #ff6600;
+    font-weight: 500;
+}
+
+#songSelect {
+    display: flex;
+    align-items: end;
+    justify-content: end;
+}
+
+#songSelect button {
+    width: 200px;
+    height: 100px;
+    margin: 40px;
+}
+
+#main button{
+    position: absolute;
+}
+
+#main #playPauseBtn {
+    
+    bottom: 0;
+    left: 0;
+
+    width: 100px;
+    height: 100px;
+    border-radius: 50px;
+    margin: 30px;
+}
+
+#main #playPauseBtn::after,
+#main #playPauseBtn::before {
+    content: '';
+
+    position: absolute;
+    display: block;
+
+    top: 50%;
+    left: 50%;
+
+    width: 10px;
+    height: 45px;
+    background-color: #99823b;
+    border-radius: 3px;
+    border: 2px solid #fff;
+
+    transition: all 0.3s ease-in-out; 
+}
+
+#main #playPauseBtn::after {
+    transform: translate(-150%, -50%);
+    opacity: 1;
+}
+
+#main #playPauseBtn::before {
+    clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+    transform: translate(50%, -50%);
+}
+
+#main #playPauseBtn.is-pause::after {
+    height: 0;
+    opacity: 0;
+} 
+
+#main #playPauseBtn.is-pause::before {
+    clip-path: polygon(0% 0%, 100% 50%, 100% 50%, 0% 100%);
+    transform: translate(-40%, -50%);
+    width: 45px;
+    background-color: #fff;
+    border: 0px solid;
+}
+
+#main #returnBtn {
+    top: 0;
+    left: 0;
+    margin: 30px;
+
+    border-radius: 50px;
+}

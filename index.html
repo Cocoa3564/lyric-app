@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="public/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./src/style.css">
+    <title>Resonate</title>
+  </head>
+  <body>
+    <!-- PIXIJS の描画キャンバス -->
+    <canvas id="pixiCanvas"></canvas>
+
+    <!-- HTML/CSS の UI -->
+    <div id="ui">
+      <div id="load" class="scene">
+
+        <p id="load-content">aaa</p>
+        <div id="load-meter">
+          <meter value="0" min="0" max="1"></meter>
+        </div>
+      </div>
+
+      <div id="help">
+        <div id="help-content">
+          <p>水面に雫が垂れると、<br>空中と水中に二つ歌詞が浮かび上がります！</p>
+          <p>二つの歌詞を選択しつなぎ合わせ、<br>歌詞を完成させましょう！</p>
+          <p id="help-annotation">※ 下のボタンをクリックすると音が流れます</p>
+          <button type="button" id="selectToBtn">
+            曲を選択する
+          </button>
+        </div>
+      </div>
+        
+      <div id="songSelect" class="scene">
+        <button type="button" id="settingBtn">設定</button>
+      </div>
+
+      <div id="main" class="scene">
+        <button type="button" id="playPauseBtn"></button>
+        <button type="button" id="returnBtn">曲選択へ</button>
+      </div>
+
+      <div id="result" class="scene">
+
+      </div>
+    </div>
+
+    
+
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>

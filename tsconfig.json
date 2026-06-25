@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "noEmit": true,
+    //"allowJs": true,
+    "checkJs": true,     // 今設定している、JSでも型チェックする機能
+    "strict": true,      // TS側で厳格な型チェックを行う
+    "target": "ESNext",
+    "moduleResolution": "bundler",
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  },
+  "include": ["src/**/*"], // すべてのファイルを対象にする
+  
+}

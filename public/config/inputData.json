@@ -1,0 +1,67 @@
+{
+    "map": {
+        "action": {
+            "keys": ["キー1", "キー2", "..."]
+        }
+    },
+
+    "camera": {
+        "move": {
+            "keyboard": {
+                "ArrowUp": { "x": 0, "y": 1 },
+                "ArrowDown": { "x": 0, "y": -1 },
+                "ArrowLeft": { "x": -1, "y": 0 },
+                "ArrowRight": { "x": 1, "y": 0 }
+            }
+        }
+    },
+    "lyric": {
+        "select": {
+            "click": true,
+            "tap": true,
+            "headPose": true
+        }
+    },
+    "ui": {
+        "move": {
+            "keyboard": {
+                "ArrowUp": { "x": 0, "y": 1 },
+                "ArrowDown": { "x": 0, "y": -1 },
+                "ArrowLeft": { "x": -1, "y": 0 },
+                "ArrowRight": { "x": 1, "y": 0 },
+
+                "w": { "x": 0, "y": 1 },
+                "s": { "x": 0, "y": -1 },
+                "a": { "x": -1, "y": 0 },
+                "d": { "x": 1, "y": 0 }
+            }
+        },
+        "cancel": {
+            "click": true,
+            "tap": true,
+            "keyboard": {
+                "Escape": true,
+                "x": true,
+                "X": true
+            }
+        },
+
+        "select": {
+            "click": true,
+            "tap": true,
+            "keyboard": {
+                "Enter": true,
+                "z": true,
+                "Z": true
+            }
+        },
+
+        "setting": {
+            "click": true,
+            "tap": true,
+            "keyboard": {
+                "Escape": true
+            }
+        }
+    }
+}
