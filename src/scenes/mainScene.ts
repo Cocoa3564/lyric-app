@@ -51,9 +51,12 @@ export default class MainScene extends Scene {
     private dropList: Drop[] = [];
     private phraseMap = new Map<TA.IPhrase, PhraseUI>();
     private completePhraseCount: number = 0;
+    private totalPhraseCount: number = 0;
     private isChorus: boolean = false;
     private playPauseBtn: HTMLButtonElement;
     private returnBtn: HTMLButtonElement;
+    private completionMeter: HTMLMeterElement;
+    private completionCountP: HTMLParagraphElement;
     private isPause: boolean = false;
     
     constructor(name: string) {
@@ -65,6 +68,9 @@ export default class MainScene extends Scene {
         }
         this.playPauseBtn = document.getElementById("playPauseBtn") as HTMLButtonElement;
         this.returnBtn = document.getElementById("returnBtn") as HTMLButtonElement;
+        const meterDiv = document.getElementById("completion-meter") as HTMLDivElement;
+        this.completionMeter = meterDiv.querySelector("meter") as HTMLMeterElement;
+        this.completionCountP = document.getElementById("completion-count") as HTMLParagraphElement;
     }
     public override async initialize(): Promise<void> {
         TAManager.player.volume = 100;
@@ -75,8 +81,13 @@ export default class MainScene extends Scene {
         this.dropList = [];
         this.phraseMap = new Map<TA.IPhrase, PhraseUI>();
         this.completePhraseCount = 0;
+        this.totalPhraseCount = TAManager.player.video.phraseCount;
         this.isChorus = false;
         this.isPause = false;
+        this.completionMeter.max = this.totalPhraseCount;
+        this.completionMeter.min = 0;
+        this.completionMeter.value = 0;
+        this.completionCountP.innerText = `0／${this.totalPhraseCount}`;
 
         const font = GameManager.currentSong.font;
         if (font) {
@@ -182,8 +193,7 @@ export default class MainScene extends Scene {
     }
 
     public override async onSongEnd(song: TA.Song): Promise<void> {
-        const totalPhraseCount = TAManager.player.video.phraseCount;
-        GameManager.completionRate = this.completePhraseCount / totalPhraseCount;
+        GameManager.completionRate = this.completePhraseCount / this.totalPhraseCount;
         
         SceneManager.changeScene("result");
     }
@@ -195,6 +205,8 @@ export default class MainScene extends Scene {
                 phrase: word.parent,
                 onComplete: () => {
                     this.completePhraseCount++;
+                    this.completionMeter.value = this.completePhraseCount;
+                    this.completionCountP.innerText = `${this.completePhraseCount}／${this.totalPhraseCount}`;
                 },
 
                 onFail: (self: PhraseUI) => {
@@ -460,7 +472,11 @@ class PhraseUI {
 
     //歌詞が完成したときの処理
     private complete() {
-        this.isCompleted = true;
+        if (!this.isCompleted) return;
+
+        this.isCompleted = false;
+        this.onFinish?.(this);
+        this.onComplete?.(this);
 
         const tl = gsap.timeline();
         tl.to(this.airLyric.container, {
@@ -511,8 +527,7 @@ class PhraseUI {
             duration: 8,
             ease: "power1.in",
             onComplete: () => {
-                this.onFinish?.(this);
-                this.onComplete?.(this);
+                this.completeLyric.destroy();
             }
         }, "<")
     }

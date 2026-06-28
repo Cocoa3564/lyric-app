@@ -247,3 +247,44 @@ meter::-webkit-meter-optimum-value {
 
     border-radius: 50px;
 }
+
+#main #completion {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+}
+
+#main #completion-meter meter {
+    width: 100%;
+    height: 40px;
+}
+
+#completion-meter {
+    margin-inline: auto;
+    margin-top: 30px;
+    margin-bottom: 15px;
+
+    padding: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    background-color: #99823b;
+    border: 6px double #fff;
+    outline: 5px solid #99823b;
+    border-radius: 305px;
+
+    width: 70%;
+}
+
+#completion-meter meter::-webkit-meter-bar {
+    background: #06323d;
+}
+#completion-meter meter::-webkit-meter-optimum-value {
+    background: #11b6db; /* 範囲内でoptimalと判定される値 */
+    background-color: #fff;
+}
+
+#completion-count {
+    color: #fff;
+    font-size: 50px;
+}
